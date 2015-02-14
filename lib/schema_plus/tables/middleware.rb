@@ -11,22 +11,24 @@ module SchemaPlus::Tables
           end
         end
 
-        def implement(env)
-          sql = "DROP"
-          sql += ' TEMPORARY' if env.options[:temporary]    # only relevant for mysql
-          sql += " TABLE"
-          sql += " IF EXISTS" if env.options[:if_exists]    # added by schema_plus
-          sql += " #{env.connection.quote_table_name(env.table_name)}"
-          sql += " CASCADE" if env.options[:force] == :cascade
-          env.connection.execute sql
-        end
-
-        module Sqlite3
-          def around(env)
-            env.options[:force] = nil if (env.options[:force] == :cascade)
-            yield env
+        module Mysql
+          def implement(env)
+            env.connection.execute Sql.drop_table(env, support_temporary: true, support_cascade: true)
           end
         end
+        
+        module Postgresql
+          def implement(env)
+            env.connection.execute Sql.drop_table(env, support_temporary: false, support_cascade: true)
+          end
+        end
+        
+        module Sqlite3
+          def implement(env)
+            env.connection.execute Sql.drop_table(env, support_temporary: false, support_cascade: false)
+          end
+        end
+
       end
     end
   end
