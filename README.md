@@ -5,7 +5,7 @@
 
 # SchemaPlus::Tables
 
-TODO: Write a gem description
+SchemaPlus::Tables adds useful features to ActiveSupport's handling of tables.  (Actually, only one for now)
 
 SchemaPlus::Tables is part of the [SchemaPlus](https://github.com/SchemaPlus/) family of Ruby on Rails extension gems.
 
@@ -30,6 +30,25 @@ which creates a Railtie to that will insert SchemaPlus::Tables appropriately int
 
 <!-- SCHEMA_DEV: TEMPLATE INSTALLATION - end -->
 
+## Usage
+
+### drop_table if exists
+
+SchemaPlus::Tables adds the `if_exists:` option:
+
+```ruby
+ActiveRecord::Migration.drop_table "table_name", if_exists: true
+```
+
+## Deprecations
+
+SchemaPlus 1.8.x provided some options and accessors that are now available in ActiveRecord 4.2, but in slightly different form.  SchemaPlus::Tables still supports the SchemaPlus 1.8.x form but issues deprecation warnings in favor of the rails
+form:
+
+* `Migration.drop_table` deprecates option
+  * `cascade: true` => `force: :cascade`
+
+
 ## Compatibility
 
 SchemaPlus::Tables is tested on:
@@ -40,13 +59,11 @@ SchemaPlus::Tables is tested on:
 
 <!-- SCHEMA_DEV: MATRIX - end -->
 
-## Usage
 
-TODO: Write usage instructions here
 
 ## History
 
-* 0.1.0 - Initial release
+* 0.1.0 - Initial release, extracted from SchemaPlus 1.x
 
 ## Development & Testing
 
