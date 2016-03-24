@@ -55,6 +55,7 @@ SchemaPlus::Tables is tested on:
 
 ## History
 
+* 0.1.1 - Update schema_plus_core and schema_dev dependencies
 * 0.1.0 - Initial release, extracted from SchemaPlus 1.x
 
 ## Development & Testing
